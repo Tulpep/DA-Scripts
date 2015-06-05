@@ -1,7 +1,5 @@
 function Get-ValidOS
 {
-  Write-Host "Hola"
+    Write-Host "Perro"
+    return $true
 }
-
-
-Get-ValidOS
