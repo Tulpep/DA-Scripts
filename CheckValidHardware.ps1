@@ -14,12 +14,15 @@
 
 #Get-ValidDiskpartition
 #Description:""
-#Examples:
+#Examples:   
+#*****************************                 Ram               ********************************
 
 #Get-ValidRam
-#Description:""
-#Examples:
+#Description:" returns a boolean if the parameter "$toValidate" written as MB meets requirements "
+#Example: Ram of 10 GB    Get-ValidRam(1) = $False  
+#Example: Ram of 10 GB    Get-ValidRam(10000000) = $True 
 
+#*****************************                 Ram               ********************************
 #Get-ValidNetAdapter
 #Description:""
 #Examples:
@@ -49,3 +52,31 @@ function Get-ValidPhysicalDisk($toValidate)
                 return $false
             }
 }
+
+
+
+#*****************************        Disks and partitions       *******************************
+
+#*****************************                 Ram               ********************************
+
+
+function Get-ValidRam($toValidate)
+{
+   $ramCapacity = Get-WMIObject Win32_ComputerSystem | ForEach-Object {$_.TotalPhysicalMemory / 1MB}
+        If ($toValidate -ge $ramCapacity)
+            {
+                return $true
+            } 
+            Else
+            {
+                return $false
+            }
+}
+
+
+
+
+
+
+
+#*****************************                 Ram               ********************************
