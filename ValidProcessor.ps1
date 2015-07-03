@@ -1,26 +1,19 @@
-﻿
-function ValidProcessor ()
+﻿function ValidProcessor ($logical, $physical)
 {
-    $cpu = Get-WmiObject Win32_Processor
-} 
+    $cpu = Get-WmiObject -class Win32_Processor
 
-ValidProcessor
-
-
-
-
-<#write-host $cpu.name
-#Write-Host $cpu.caption
-$asd = "asd5ertytrasd"
-function asdfiasdfjh($asd)
-{
-
-Write-Host $asd
-
-
-
-
+    
+    if (($cpu.NumberOfLogicalProcessors -ge [int]::Parse($logical)) -and $cpu.NumberOfCores -ge [int]::Parse($physical))
+    {
+        return $true
+    }
+    else
+    {
+        return $false
+    }
 }
 
-asdfiasdfjh(2 3)
-#>
+
+$logical = Read-Host "Ingrese el numero de cores logicos del requerimiento"
+$physical = Read-Host "Ingrese el numero de cores fisicos del requerimiento"
+ValidProcessor $logical $physical
